@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>国际静心协会 金边中和静心学堂 公益行动平台</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:#f4f5f7;color:#333;line-height:1.6}
+.container{max-width:500px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:60px;box-shadow:0 0 20px rgba(0,0,0,.06)}
+.header{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;padding:28px 20px 20px;text-align:center;border-radius:0 0 20px 20px}
+.header h1{font-size:20px;font-weight:700}.header p{font-size:13px;opacity:.9}
+.nav-tabs{display:flex;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100}
+.nav-item{flex:1;text-align:center;padding:12px 4px;font-size:13px;font-weight:600;color:#6b7280;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.nav-item.active{color:#2563eb;border-bottom-color:#2563eb;background:#eff6ff}
+.page-section{display:none;padding:16px}.page-section.active{display:block}
+.card{background:#fff;margin-bottom:16px;padding:18px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.04);border:1px solid #f0f0f0}
+.card-title{font-size:16px;font-weight:600;color:#1e3a8a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-title::before{content:"";display:inline-block;width:4px;height:15px;background:#2563eb;border-radius:2px}
+.intro-box{background:#f8fafc;padding:14px;border-radius:10px;margin-bottom:12px;border-left:4px solid #3b82f6}
+.intro-box h3{font-size:15px;color:#1e293b;margin-bottom:6px}.intro-box p{font-size:13px;color:#475569;line-height:1.6}
+.schedule-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed #e2e8f0}
+.schedule-item:last-child{border-bottom:none}
+.time-badge{background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;height:fit-content;white-space:nowrap}
+.qr-card{background:#fff7ed;border:1.5px dashed #f97316;text-align:center}
+.qr-box{background:#fff;padding:10px;display:inline-block;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin:10px 0}
+.qr-img{width:160px;height:160px;display:block;object-fit:contain;margin:0 auto}
+.qr-tips{font-size:13px;color:#ea580c;font-weight:600;margin-top:2px}.qr-notice{font-size:11px;color:#9a3412;margin-top:4px}
+.item-list-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.item-list-table th,.item-list-table td{padding:8px 6px;text-align:left;border-bottom:1px solid #f3f4f6}
+.item-list-table th{background:#f1f5f9;color:#334155;font-weight:600}
+.badge{display:inline-block;padding:2px 6px;font-size:10px;border-radius:4px;font-weight:500}
+.badge-urgent{background:#fee2e2;color:#dc2626}.badge-normal{background:#e0f2fe;color:#0369a1}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:4px}
+.form-control{width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;outline:none}
+.form-control:focus{border-color:#2563eb}
+.radio-group{display:flex;gap:10px}
+.radio-label{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:8px;border:1px solid #d1d5db;border-radius:8px;font-size:12px;cursor:pointer;background:#f9fafb}
+.radio-label input{accent-color:#2563eb}
+.btn{display:block;width:100%;padding:10px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-align:center}
+.btn:disabled{background:#93c5fd}
+.record-item{background:#fafafa;border-left:3px solid #2563eb;padding:10px 12px;border-radius:6px;margin-bottom:8px;font-size:12px}
+.record-header{display:flex;justify-content:space-between;font-weight:600;color:#1e293b}
+.record-details{color:#475569;margin-top:2px}.record-date{color:#94a3b8;font-size:11px;margin-top:4px}
+.record-delete{float:right;font-size:11px;color:#ef4444;cursor:pointer;padding:2px 6px}
+.footer{text-align:center;font-size:11px;color:#94a3af;padding:20px 16px 10px}
+.config-toggle{text-align:right;font-size:12px;color:#9ca3af;margin-bottom:4px;cursor:pointer}
+.config-panel{display:none;background:#f8fafc;padding:12px;border-radius:8px;margin-bottom:12px;border:1px solid #e5e7eb}
+.config-panel.open{display:block}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%)translateY(80px);background:#1f2937;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%)translateY(0)}
+.photo-scroll{display:flex;overflow-x:auto;gap:6px;padding-bottom:8px}
+.photo-scroll img{flex-shrink:0;border-radius:8px;cursor:pointer;object-fit:cover}
+.activity-item{background:#fafafa;padding:12px 14px;border-radius:8px;margin-bottom:8px;font-size:12px}
+
+.admin-mode{background:#fef2f2;border:1px dashed #ef4444;padding:8px;border-radius:8px;margin-top:8px;font-size:12px}
+.admin-mode input{width:100%;padding:6px 8px;border:1px solid #d1d5db;border-radius:4px;font-size:12px;margin-bottom:4px}
+.admin-mode select{padding:4px 6px;border:1px solid #d1d5db;border-radius:4px;font-size:11px}
+.admin-btn{font-size:11px;padding:3px 8px;border-radius:4px;cursor:pointer;border:1px solid;margin:0 2px}
+.admin-btn-edit{color:#2563eb;border-color:#93c5fd}
+.admin-btn-del{color:#ef4444;border-color:#fca5a5}
+.admin-btn-add{color:#16a34a;border-color:#86efac}
+.admin-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;background:#fee2e2;color:#dc2626;font-weight:600;margin-left:6px;cursor:pointer}
+.admin-logged{display:none}
+body.admin .admin-logged{display:inline}
+body.admin .admin-hidden{display:none}
+
+</style></head><body><div class="container">
+<header class="header"><h1>国际静心协会</h1><p>金边中和静心学堂 · 文化传递与社会公益平台</p></header>
+<nav class="nav-tabs"><div class="nav-item active" onclick="switchPage('sec1',this)">品牌介绍</div><div class="nav-item" onclick="switchPage('sec2',this)">中和学堂活动</div><div class="nav-item" onclick="switchPage('sec3',this)">公益活动</div></nav>
+<section id="sec1" class="page-section active">
+<div class="card">
+<h2 class="card-title">关于我们</h2>
+<div class="intro-box">
+<h3>国际静心协会 (Mindful Peace International)</h3>
+<p><strong>国际静心协会</strong>（MPI）<strong>是一个全球性非盈利组织，主要推广佛教文化、禅意生活和生命觉醒教育</strong>。成立于2022年2月瑞士苏黎世，礼请汉传佛教高僧济群法师担任导师。由济群法师无偿授予三十多年探索的汉传佛教现代化教育课程体系。在全球各地打造“静心学堂”、“静心小院”与“安心茶室”等公益禅意空间。</p>
+<p style="margin-top:8px">了解更多：<a href="https://mindfulpeace.org/" target="_blank" style="color:#2563eb;font-weight:600">mindfulpeace.org</a></p>
+</div>
+<div class="intro-box" style="border-left-color:#ea580c">
+<h3>大道大商 (Dadao Dashang)</h3>
+<p><strong>大道大商</strong>是面向全球企业家的静心文化公益性学习与交流平台。<strong>大道</strong>代表智慧与觉悟，<strong>大商</strong>倡导商业成就与社会责任相统一。起源于2015年分论坛，关注企业家的幸福与成功、利益与慈善、人生意义与身心安顿。</p>
+<p style="margin-top:8px">了解更多：<a href="https://greatpath-greatbusiness.com/" target="_blank" style="color:#2563eb;font-weight:600">greatpath-greatbusiness.com</a></p>
+</div>
+</div>
+</section>
+<section id="sec2" class="page-section">
+<div class="card"><h2 class="card-title">学堂环境展示</h2><div class="photo-scroll" id="schoolPhotoGrid"></div></div>
+<div class="card"><h2 class="card-title">近期活动信息</h2><form id="activityForm"><div class="form-group"><label for="actTitle">活动标题</label><input type="text" id="actTitle" class="form-control" placeholder="例：8月禅修体验日" required></div><div class="form-group"><label for="actDate">活动日期</label><input type="date" id="actDate" class="form-control" required></div><div class="form-group"><label for="actDesc">活动详情</label><textarea id="actDesc" class="form-control" rows="3" placeholder="活动内容、时间、地点、参与方式" required></textarea></div><button type="submit" class="btn">发布活动</button></form><div id="activityList" style="margin-top:14px"><p style="text-align:center;color:#9ca3af;font-size:12px;padding:12px 0;">暂无活动信息</p></div></div>
+<div class="card"><h2 class="card-title">往期活动集锦</h2><div class="photo-scroll" id="pastActGallery"></div></div>
+<div class="card qr-card"><h2 class="card-title" style="justify-content:center;color:#ea580c">扫码登记 · 报名咨询</h2><div class="qr-box"><img src="../二维码/活动报名二维码.png" alt="报名二维码" class="qr-img"></div><p class="qr-tips">长按识别二维码联系咨询</p><p class="qr-notice">（二维码 7 天内有效）</p></div>
+</section>
+<section id="sec3" class="page-section"><div style="background:#f8fafc;border-radius:10px;padding:14px;margin-bottom:16px;border:1px solid #f1f3f5"><h3 style="font-size:14px;color:#1e293b;margin-bottom:6px">本次公益行动</h3><p style="font-size:12px;color:#475569;line-height:1.7">本次行动由中和静心学堂与柬埔寨华人爱心人士共同发起，定向支持 FLO（Future Light Organization）。募集的物资由义工团队直接送达情困学童。</p></div>
+<div class="card" style="background:#f0fdf4">
+                <h2 class="card-title">关于 FLO</h2>
+                <div style="font-size:13px;color:#374151;line-height:1.9;padding:4px 0">
+                <div style="margin-bottom:14px;background:#f8fafc;border-radius:8px;padding:12px">
+                <strong>Yit Virasy</strong><br>
+                <strong>Executive Director</strong><br>
+                <strong>Future Light Organization (FLO)</strong></div>
+                <div style="margin-bottom:10px;padding-left:4px"><strong>地址：</strong><br>Prey Lovear Village, Chom Chao Commune,<br>Posen Chey District, Phnom Penh / P.O. Box 818</div>
+                <div style="margin-bottom:8px;padding-left:4px"><strong>电话：</strong> +855 12 288 112 或 +855 15 33 76 71</div>
+                <div style="margin-bottom:8px;padding-left:4px"><strong>电邮：</strong> <a href="mailto:orgflo1618@gmail.com" style="color:#2563eb">orgflo1618@gmail.com</a></div>
+                <div style="margin-bottom:8px;padding-left:4px"><strong>Facebook：</strong> <a href="https://www.facebook.com/futurelightorganization/" target="_blank" style="color:#2563eb">facebook.com/futurelightorganization</a></div>
+                <div style="margin-bottom:8px;padding-left:4px"><strong>Line / WhatsApp / Telegram：</strong><br>+855 15 33 76 71 / +855 15 33 76 71 / 097 871 5285</div>
+                <div style="margin-bottom:4px;padding-left:4px"><strong>网址：</strong> <a href="https://futurelightorganization.org/activities" target="_blank" style="color:#2563eb">futurelightorganization.org/activities</a></div>
+                </div></div>
+<div class="card">
+                <h2 class="card-title">现场实景 & 儿童照片</h2>
+                <div class="photo-scroll" id="scenePhotoGrid"></div></div>
+<div class="card"><h2 class="card-title">需求物资清单</h2><table class="item-list-table"><thead><tr><th>分类</th><th>物资名称及规格</th><th>紧急</th></tr></thead><tbody>
+<tr><td>学习用品</td><td>书包 (小学/中学) × 68个、笔记本/练习本 × 200+、铅笔/原子笔/彩色笔各 × 100支、水彩笔/豆米粘土</td><td><span class="badge badge-urgent">急需</span></td></tr>
+<tr><td>生活食品</td><td>大米 50kg/袋 × 10袋、食用油 5L × 20桶、即食面/米线 × 100包、牛奶粉/营养品 × 20罐、罐头 (肉类/鱼类) × 50罐</td><td><span class="badge badge-urgent">急需</span></td></tr>
+<tr><td>日用品</td><td>肥皂/洗发水/淋浴露 各 × 50瓶、牙刷/牙膏 各 × 68套、毛巾/洗衣粉 各 × 50</td><td><span class="badge badge-urgent">急需</span></td></tr>
+<tr><td>校服类</td><td>女生校服(裙+衬衫) × 29套(腰围 20-37)、男生校服(裤+衬衫) × 39套(腰围 18-40)、运动服 × 68套</td><td><span class="badge badge-urgent">急需</span></td></tr>
+<tr><td>鞋子类</td><td>女生鞋子 × 29双(鞋码 28-43)、男生鞋子 × 39双(鞋码 25-45)、拖鞋/凉鞋 × 68双</td><td><span class="badge badge-urgent">急需</span></td></tr>
+<tr><td>交通运输</td><td>自行车 (学生型) × 20辆</td><td><span class="badge badge-normal">日常</span></td></tr>
+<tr><td>体育文具</td><td>足球 × 10个、羽毛球拍+球 × 10套、跳绳/益智玩具/课外读物 若干</td><td><span class="badge badge-normal">日常</span></td></tr>
+</tbody></table></div><div id="wishlistAdmin" class="admin-mode" style="display:none"><div style="font-weight:600;margin-bottom:6px">编辑物资清单</div><div id="wlEditArea"></div><button class="admin-btn admin-btn-add" onclick="wlAddRow()">+ 添加项目</button><button class="admin-btn admin-btn-edit" onclick="wlSave()" style="margin-left:6px">保存</button></div><div class="card qr-card"><h2 class="card-title" style="justify-content:center;color:#ea580c">加入义工沟通群</h2><div class="qr-box"><img src="../二维码/义工沟通群二维码.png" alt="义工二维码" class="qr-img"></div><p class="qr-tips">长按识别二维码加入群聊</p><p class="qr-notice">（二维码 7 天内有效）</p></div><div class="card"><h2 class="card-title">物资筹集与发放在线记账</h2><form id="donationForm"><div class="form-group"><label>业务类型</label><div class="radio-group"><label class="radio-label"><input type="radio" name="type" value="物资筹集" checked> 物资筹集(入库)</label><label class="radio-label"><input type="radio" name="type" value="物资发放"> 物资发放(出库)</label></div></div><div class="form-group"><label>归属板块</label><div class="radio-group"><label class="radio-label"><input type="radio" name="region" value="柬埔寨" checked> 柬埔寨</label><label class="radio-label"><input type="radio" name="region" value="中国"> 中国</label></div></div><div class="form-group"><label for="person">经手人 / 捐赠人</label><input type="text" id="person" class="form-control" placeholder="例：张先生 / 金边现场义工组" required></div><div class="form-group"><label for="itemDetail">物品名称及数量</label><input type="text" id="itemDetail" class="form-control" placeholder="例：学生文具 50套 / 大米 2袋" required></div><div class="form-group"><label for="donationDate">变动日期</label><input type="date" id="donationDate" class="form-control" required></div><div class="form-group"><label for="remark">备注说明(可选)</label><input type="text" id="remark" class="form-control" placeholder="例：已送达 FLO 孤儿院并完成签收"></div><button type="submit" id="submitBtn" class="btn">提交记账</button></form></div><div class="card"><h2 class="card-title">物资明细</h2><div id="recordsList"><p style="text-align:center;color:#9ca3af;font-size:12px;padding:12px 0;">暂无明细记录</p></div></div></section>
+<div class="config-toggle" onclick="toggleConfig()">⚙️ 高级设置</div>
+<div class="config-panel" id="configPanel"><div class="form-group" style="margin-bottom:8px"><label>Google Apps Script URL（可选）</label><input type="text" id="gasUrl" class="form-control" placeholder="留空则仅使用本地存储" onchange="saveConfig()"></div><button style="background:transparent;color:#2563eb;border:1px solid #2563eb;border-radius:8px;font-size:12px;padding:8px" onclick="clearAllData()">清空所有本地数据</button>
+<hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb">
+<div style="font-size:12px;color:#374151;margin-bottom:6px">管理员登录</div>
+<div style="display:flex;gap:6px"><input type="password" id="adminPwd" class="form-control" placeholder="请输入密码" style="flex:1;padding:6px 10px;font-size:12px">
+<button style="padding:6px 12px;background:#2d3436;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer" onclick="adminLogin()">登录</button>
+<button id="adminLogoutBtn" style="display:none;padding:6px 12px;background:#ef4444;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer" onclick="adminLogout()">退出</button></div>
+<div id="adminStatus" style="font-size:11px;color:#6b7280;margin-top:4px"></div>
+</div>
+<footer class="footer"><p>© 国际静心协会 &middot; 金边中和静心学堂</p></footer></div>
+<div class="toast" id="toast"></div>
+<script>
+function switchPage(id,el){document.querySelectorAll('.page-section').forEach(function(s){s.classList.remove('active')});document.querySelectorAll('.nav-item').forEach(function(t){t.classList.remove('active')});document.getElementById(id).classList.add('active');el.classList.add('active');}
+function toggleConfig(){var p=document.getElementById('configPanel');if(p)p.classList.toggle('open');}
+function saveConfig(){var u=document.getElementById('gasUrl').value.trim();localStorage.setItem('donation_config',JSON.stringify({gasUrl:u}));showToast('配置已保存');}
+function clearAllData(){if(!confirm('确定清空？'))return;localStorage.removeItem('donation_records');localStorage.removeItem('activity_records');try{var el=document.getElementById('recordsList');if(el)el.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:12px;padding:12px 0;">暂无明细记录</p>';}catch(e){}showToast('已清空');}
+function showToast(m){var e=document.getElementById('toast');if(!e)return;e.textContent=m;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('show')},2500)}
+var dK='donation_records';var rds=[];
+function ld(){try{rds=JSON.parse(localStorage.getItem(dK))||[]}catch(e){rds=[]}}
+function sd(){localStorage.setItem(dK,JSON.stringify(rds))}
+function delR(id){if(!confirm('确定删除？'))return;rds=rds.filter(function(r){return r.id!==id});sd();renderDonation();}
+function renderDonation(){var el=document.getElementById('recordsList');if(!el)return;ld();if(!rds.length){el.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:12px;padding:12px 0;">暂无明细记录</p>';return;}var h='';for(var i=0;i<rds.length;i++){var r=rds[i];var e=function(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')};var tag=r.type==='物资发放'?'🎁 发放':'📦 筹集';h+='<div class="record-item"><span class="record-delete" onclick="delR(\''+e(r.id)+'\')">✕</span><div class="record-header"><span>'+e(r.person)+'</span><span>['+tag+'] '+e(r.region)+'</span></div><div class="record-details">物品：'+e(r.item)+'</div>'+(r.remark?'<div class="record-details">备注：'+e(r.remark)+'</div>':'')+'<div class="record-date">日期：'+e(r.date)+'</div></div>';}el.innerHTML=h;}
+var aK='activity_records';var acts=[];
+function la(){try{acts=JSON.parse(localStorage.getItem(aK))||[]}catch(e){acts=[]}}
+function sa(){localStorage.setItem(aK,JSON.stringify(acts))}
+function ra(){var el=document.getElementById('activityList');if(!el||!acts.length){if(el)el.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:12px;padding:12px 0;">暂无活动信息</p>';return;}var h='';for(var i=0;i<acts.length;i++){var a=acts[i];var e=function(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')};h+='<div class="activity-item"><span style="float:right;font-size:11px;color:#ef4444;cursor:pointer" onclick="deleteAct(\''+e(a.id)+'\')">✕</span><div style="font-weight:600;font-size:14px;color:#1e293b">'+e(a.title)+'</div><div style="color:#64748b;font-size:11px;margin:4px 0">📅 '+e(a.date)+'</div><div style="color:#475569;margin-top:4px;line-height:1.7">'+e(a.desc)+'</div></div>';}el.innerHTML=h;}
+function deleteAct(id){if(!confirm('确定删除？'))return;acts=acts.filter(function(a){return a.id!==id});sa();ra();}
+
+// 场地照片加载
+function lsp(){var g=document.getElementById("schoolPhotoGrid");if(!g)return;var d="../MPI/场地照片_web";var fs=["门厅.jpg","般若堂.jpg","启明堂.jpg","和敬轩.jpg","香积堂.jpg","云水轩.jpg","欢喜地.jpg"];var h="";for(var i=0;i<fs.length;i++){h+="<div style='display:inline-block;width:160px;margin-right:8px;flex-shrink:0'><div style='font-size:11px;color:#475569;margin-bottom:4px;text-align:center;font-weight:500'>"+fs[i].replace(".jpg","")+"</div><img src='"+d+"/"+fs[i]+"' alt='场地照片' style='width:160px;height:160px;object-fit:cover;border-radius:8px;cursor:pointer' onclick='window.open(this.src,\"_blank\")'></div>";}g.innerHTML=h;}
+// 往期活动加载
+
+function lssp(){var g=document.getElementById("scenePhotoGrid");if(!g)return;var d="../实景照片_web";var fs=["微信图片_20260725201534.jpg","微信图片_20260725201549.jpg","微信图片_20260725201554.jpg","微信图片_20260725201559.jpg","微信图片_20260725201602.jpg","微信图片_20260725201607.jpg","微信图片_20260725201610.jpg","微信图片_20260725201614.jpg","微信图片_20260725201618.jpg","微信图片_20260725201622.jpg","微信图片_20260725201625.jpg","微信图片_20260725201629.jpg"];var h="";for(var i=0;i<fs.length;i++){h+="<div style='display:inline-block;width:160px;margin-right:8px;flex-shrink:0'><img src='"+d+"/"+fs[i]+"' alt='现场照片' style='width:160px;height:160px;object-fit:cover;border-radius:8px;cursor:pointer' onclick='window.open(this.src,\"_blank\")'></div>";}g.innerHTML=h;}
+
+function lap(){var g=document.getElementById("pastActGallery");if(!g)return;var d="../MPI/往期活动_web";var fs=[{"n":"静心茶会","f":"静心茶会.jpg"},{"n":"义工行","f":"义工行.jpg"},{"n":"月光茶会","f":"月光茶会.jpg"},{"n":"正念抄经","f":"正念抄经.jpg"},{"n":"读书分享会","f":"读书分享会.jpg"},{"n":"静心蔬食","f":"静心蔬食.jpg"},{"n":"静心蔬食2","f":"静心蔬食2.jpg"},{"n":"静心蔬食3","f":"静心蔬食3.jpg"}];var h="";for(var i=0;i<fs.length;i++){h+="<div style='display:inline-block;width:200px;margin-right:10px;flex-shrink:0'><div style='font-size:12px;color:#1e293b;margin-bottom:6px;text-align:center;font-weight:600'>"+fs[i].n+"</div><img src='"+d+"/"+fs[i].f+"' alt='"+fs[i].n+"' style='width:200px;height:150px;object-fit:cover;border-radius:10px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.08)' onclick='window.open(this.src,\"_blank\")'></div>";}g.innerHTML=h;}
+// 主初始化
+document.addEventListener("DOMContentLoaded",function(){var dc=localStorage.getItem('donation_config');if(dc){var cj=JSON.parse(dc);if(cj.gasUrl){var gu=document.getElementById('gasUrl');if(gu)gu.value=cj.gasUrl;}}ld();renderDonation();la();ra();lsp();lap();var lsspTimer=setInterval(function(){if(typeof lssp!="undefined"){clearInterval(lsspTimer);lssp();}},100);var d=new Date();var ae=document.getElementById('actDate');if(ae)ae.valueAsDate=d;var de=document.getElementById('donationDate');if(de)de.valueAsDate=d;var af=document.getElementById('activityForm');if(af){af.addEventListener('submit',function(e){e.preventDefault();var a={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:document.getElementById('actTitle').value.trim(),date:document.getElementById('actDate').value,desc:document.getElementById('actDesc').value.trim(),createdAt:new Date().toISOString()};if(!a.title||!a.desc){alert('请填写完整信息');return;}acts.unshift(a);sa();ra();document.getElementById('actTitle').value='';document.getElementById('actDesc').value='';var dn=new Date();var ae2=document.getElementById('actDate');if(ae2)ae2.valueAsDate=dn;});}var df=document.getElementById('donationForm');if(df){df.addEventListener('submit',function(e){e.preventDefault();var btn=document.getElementById('submitBtn');var rec={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),type:document.querySelector('#donationForm input[name="type"]:checked').value,region:document.querySelector('#donationForm input[name="region"]:checked').value,person:document.getElementById('person').value.trim(),item:document.getElementById('itemDetail').value.trim(),date:document.getElementById('donationDate').value,remark:document.getElementById('remark').value.trim(),createdAt:new Date().toISOString()};if(!rec.person||!rec.item){alert('请填写完整信息');return;}btn.disabled=true;btn.textContent='⏳ 提交中...';rds.unshift(rec);sd();renderDonation();var gu=document.getElementById('gasUrl');var gv=gu?gu.value.trim():'';if(gv){fetch(gv,{method:'POST',body:JSON.stringify(rec)}).then(function(r){return r.json()}).then(function(d){console.log('Cloud OK')}).catch(function(e){console.warn('Cloud:',e)})}document.getElementById('person').value='';document.getElementById('itemDetail').value='';document.getElementById('remark').value='';var dn2=new Date();var de2=document.getElementById('donationDate');if(de2)de2.valueAsDate=dn2;btn.disabled=false;btn.textContent='提交记账';alert('提交成功！');});}});
+// 物资清单管理
+var wlKey="wishlist_data";
+var wlDefault=[{cat:"学习用品",name:"书包 (小学/中学) × 68个、笔记本/练习本 × 200+、铅笔/原子笔/彩色笔各 × 100支、水彩笔/豆米粘土",u:1},{cat:"生活食品",name:"大米 50kg/袋 × 10袋、食用油 5L × 20桶、即食面/米线 × 100包、牛奶粉/营养品 × 20罐、罐头 (肉类/鱼类) × 50罐",u:1},{cat:"日用品",name:"肥皂/洗发水/淋浴露 各 × 50瓶、牙刷/牙膏 各 × 68套、毛巾/洗衣粉 各 × 50",u:1},{cat:"校服类",name:"女生校服(裙+衬衫) × 29套(腰围 20-37)、男生校服(裤+衬衫) × 39套(腰围 18-40)、运动服 × 68套",u:1},{cat:"鞋子类",name:"女生鞋子 × 29双(鞋码 28-43)、男生鞋子 × 39双(鞋码 25-45)、拖鞋/凉鞋 × 68双",u:1},{cat:"交通运输",name:"自行车 (学生型) × 20辆",u:0},{cat:"体育文具",name:"足球 × 10个、羽毛球拍+球 × 10套、跳绳/益智玩具/课外读物 若干",u:0}];
+var wlData=[];var isAdmin=false;
+function wlLoad(){try{var d=localStorage.getItem(wlKey);if(d){wlData=JSON.parse(d)}else{wlData=JSON.parse(JSON.stringify(wlDefault))}}catch(e){wlData=JSON.parse(JSON.stringify(wlDefault))}}
+function wlSaveData(){localStorage.setItem(wlKey,JSON.stringify(wlData))}
+function adminLogin(){var p=document.getElementById("adminPwd");var pw=p?p.value:"";var cfg=localStorage.getItem("donation_config");var adPwd="admin123";try{if(cfg){var cj=JSON.parse(cfg);if(cj.adminPwd)adPwd=cj.adminPwd}}catch(e){}if(pw===adPwd){isAdmin=true;document.body.classList.add("admin");var ws=document.getElementById("wishlistAdmin");if(ws)ws.style.display="block";var as=document.getElementById("adminStatus");if(as)as.textContent="已登录管理模式";var lb=document.getElementById("adminLogoutBtn");if(lb)lb.style.display="inline";wlLoad();wlRenderEdit();if(p)p.value=""}else{var as3=document.getElementById("adminStatus");if(as3)as3.textContent="密码错误";}}
+function adminLogout(){isAdmin=false;document.body.classList.remove("admin");var ws=document.getElementById("wishlistAdmin");if(ws)ws.style.display="none";var as=document.getElementById("adminStatus");if(as)as.textContent="";var lb=document.getElementById("adminLogoutBtn");if(lb)lb.style.display="none"}
+function wlRenderEdit(){var el=document.getElementById("wlEditArea");if(!el)return;var h="";for(var i=0;i<wlData.length;i++){var d=wlData[i];h+='<div style="background:#fff;padding:8px;border-radius:6px;margin-bottom:6px;border:1px solid #f1f3f5">';h+='<div style="display:flex;gap:4px;margin-bottom:4px"><input value="'+escHtml(d.cat)+'" id="wl_cat_'+i+'" style="width:28%;font-size:11px" placeholder="分类"><input value="'+escHtml(d.name)+'" id="wl_name_'+i+'" style="flex:1;font-size:11px" placeholder="物资名称及规格"><select id="wl_urgent_'+i+'" style="font-size:11px"><option value="1"'+(d.u?' selected':'')+'>急需</option><option value="0"'+(d.u?'':' selected')+'>日常</option></select></div>';h+='<button class="admin-btn admin-btn-del" onclick="wlDelRow('+i+')">删除</button></div>';}el.innerHTML=h;}
+function wlDelRow(i){wlData.splice(i,1);wlRenderEdit()}
+function wlAddRow(){wlData.push({cat:"新分类",name:"请填写物资名称及数量",u:1});wlRenderEdit();var ea=document.getElementById("wlEditArea");if(ea){var last=ea.lastElementChild;if(last)last.scrollIntoView({behavior:"smooth"})}}
+function wlSave(){for(var i=0;i<wlData.length;i++){var ce=document.getElementById("wl_cat_"+i);var ne=document.getElementById("wl_name_"+i);var ue=document.getElementById("wl_urgent_"+i);if(ce)wlData[i].cat=ce.value;if(ne)wlData[i].name=ne.value;if(ue)wlData[i].u=parseInt(ue.value)}wlSaveData();wlRenderTable();alert("物资清单已保存");}
+function wlRenderTable(){var tbl=document.querySelector(".item-list-table tbody");if(!tbl)return;var h="";for(var i=0;i<wlData.length;i++){var d=wlData[i];var urg=d.u?"<span class='badge badge-urgent'>急需</span>":"<span class='badge badge-normal'>日常</span>";h+="<tr><td>"+escHtml(d.cat)+"</td><td>"+escHtml(d.name)+"</td><td>"+urg+"</td></tr>";}tbl.innerHTML=h;}
+function escHtml(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+// 初始化物资清单
+wlLoad();wlRenderTable();
+
+</script>
+</body>
+</html>
